@@ -12,7 +12,32 @@
 </head>
   
 <body>
+figlet.defaults({fontPath: 'https://unpkg.com/figlet@1.4.0/fonts/'});
+figlet.preloadFonts(["Standard", "Slant"], ready);
+
+var term;
+
+function ready() {
+    term = $('body').terminal(function(cmd) {
+       
+        this.echo(() => render(cmd));
+    }, {
+        greetings: function() {
+            return render('eXfilPr4tik', 'Slant') +
+                `\n[[;rgba(255,255,255,0.99);]jQuery Terminal ${$.terminal.version}]. Type something to render figlet text.\n`;
+        }
+    });
+}
+
+function render(text, font) {
+    return figlet.textSync(text, {
+        font: font || 'Standard',
+        width: !term ? 80 : term.cols(),
+        whitespaceBreak: true
+    });
+}
   <script>
+    
 $('body').terminal({
     hello: function(what) {
         this.echo('Hello, ' + what +
