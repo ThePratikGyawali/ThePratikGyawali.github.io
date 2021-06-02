@@ -21,6 +21,70 @@ $('body').terminal({
 }, {
     greetings: 'eXfilPr4tik's Terminal'
 });
+    $('body').terminal({
+    cat: function() {
+        this.echo($('<img src="https://placekitten.com/408/287">'));
+    }
+});
+    $('body').terminal({
+    cat: function(width, height) {
+        const img = $('<img src="https://placekitten.com/' +
+                      width + '/' + height + '">');
+        this.echo(img);
+    }
+});
+    $('body').terminal({
+    cat: function(width, height) {
+        const img = $('<img src="https://placekitten.com/' +
+                      width + '/' + height + '">');
+        img.on('load', this.resume);
+        this.pause();
+        this.echo(img);
+    }
+}, {
+    greetings: 'eXfilPr4tik's Terminal\n'
+      
+     function get_image(url) {
+    return new Promise(function(resolve, reject) {
+        const img = $('<img src="' + url + '"'/>');
+        img.on('load', () => resolve(img));
+        img.on('error', reject);
+    });
+}
+$('body').terminal({
+    cat: function(width, height) {
+        return get_image('https://placekitten.com/' + width +
+                         '/' + height);
+    }
+}, {
+    greetings: 'eXfilPrtik's Terminal\n'
+});
+});
+    
+    $('body').terminal({
+    title: function() {
+        return fetch('https://terminal.jcubic.pl')
+            .then(r => r.text())
+            .then(html => html.match(/<title>([^>]+)<\/title>/)[1]);
+    }
+}, {
+    greetings: 'eXfilPrtik's Terminal\n'
+  
+      
+     $('body').terminal({
+    title: function(...args) {
+        const options = $.terminal.parse_options(args);
+        return fetch(options.url || 'https://terminal.jcubic.pl')
+            .then(r => r.text())
+            .then(html => html.match(/<title>([^>]+)<\/title>/)[1]);
+    }
+}, {
+    checkArity: false,
+    greetings: 'eXfilPr4tik's Terminal\n'
+});
+});
+    
+    
 </script>
 </body>
 </html>
