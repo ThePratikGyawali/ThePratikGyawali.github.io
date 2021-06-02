@@ -48,6 +48,122 @@
   
 </head>
 <body>
+  
+  
+  <script>
+    class TextScramble {
+  constructor(el) {
+    this.el = el
+    this.chars = '!@#$%^&*()_-=+{}:"|<>?,./;'
+    this.update = this.update.bind(this)
+  }
+  setText(newText) {
+    const oldText = this.el.innerText
+    const length = Math.max(oldText.length, newText.length)
+    const promise = new Promise((resolve) => this.resolve = resolve)
+    this.queue = []
+    for (let i = 0; i < length; i++) {
+      const from = oldText[i] || ''
+      const to = newText[i] || ''
+      const start = Math.floor(Math.random() * 40)
+      const end = start + Math.floor(Math.random() * 40)
+      this.queue.push({ from, to, start, end })
+    }
+    cancelAnimationFrame(this.frameRequest)
+    this.frame = 0
+    this.update()
+    return promise
+  }
+  update() {
+    let output = ''
+    let complete = 0
+    for (let i = 0, n = this.queue.length; i < n; i++) {
+      let { from, to, start, end, char } = this.queue[i]
+      if (this.frame >= end) {
+        complete++
+        output += to
+      } else if (this.frame >= start) {
+        if (!char || Math.random() < 0.28) {
+          char = this.randomChar()
+          this.queue[i].char = char
+        }
+        output += `<span class="dud">${char}</span>`
+      } else {
+        output += from
+      }
+    }
+    this.el.innerHTML = output
+    if (complete === this.queue.length) {
+      this.resolve()
+    } else {
+      this.frameRequest = requestAnimationFrame(this.update)
+      this.frame++
+    }
+  }
+  randomChar() {
+    return this.chars[Math.floor(Math.random() * this.chars.length)]
+  }
+}
+
+const phrases = [
+  'Take the day off. Put your feet up. You deserve it!',
+  'Beautiful Lady ! .',
+  'Today you are you! That is truer than true! There is no one alive who is you-er than you!',
+  'On your birthday may your spirit be enriched in light, love, and hope for a prosperous year ahead.',
+  'Bipana have a wonderful life ahead.',
+  'They may stop others, but you cant stop you...',
+  'after all, This is your Birthday.'
+]
+
+const el = document.querySelector('.text')
+const fx = new TextScramble(el)
+
+let counter = 0
+const next = () => {
+  fx.setText(phrases[counter]).then(() => {
+    setTimeout(next, 1500)
+  })
+  counter = (counter + 1) % phrases.length
+}
+
+next()
+
+'use strict';
+
+var app = {
+
+  chars: ['Bipana','Magnificent','Cute','Beautiful','REALITY','Gorgeous','Bhaihalchani! ','Reality!','Pyari!','QUEEN','Birthday' ,'❤️' ,'Hey! Beautiful','2060/11/21' ,'🥳','HappyBirthday'],
+
+  init: function () {
+    app.container = document.createElement('div');
+    app.container.className = 'animation-container';
+    document.body.appendChild(app.container);
+    window.setInterval(app.add, 100);
+  },
+
+  add: function () {
+    var element = document.createElement('span');
+    app.container.appendChild(element);
+    app.animate(element);
+  },
+
+  animate: function (element) {
+    var character = app.chars[Math.floor(Math.random() * app.chars.length)];
+    var duration = Math.floor(Math.random() * 15) + 1;
+    var offset = Math.floor(Math.random() * (50 - duration * 2)) + 3;
+    var size = 10 + (15 - duration);
+    element.style.cssText = 'right:'+offset+'vw; font-size:'+size+'px;animation-duration:'+duration+'s';
+    element.innerHTML = character;
+    window.setTimeout(app.remove, duration * 1000, element);
+  },
+
+  remove: function (element) {
+    element.parentNode.removeChild(element);
+  },
+
+};
+document.addEventListener('DOMContentLoaded', app.init);
+</script>
 <div id="wrapper">
   <h2>eXfilPr4tik is on TIKTOK!</h2>
   <svg id="face" height="600" width="300">
@@ -126,36 +242,5 @@
     />
   </svg>
 </div>
-
-  <script>
-  $count = 1;
-
-$('#face').click(function() {
-  if ($count%2 === 0) {
-    $(this).children('path').attr('d', 'M115 105 a1,0.8 0.2 0,0 70,0');
-    $('#instructions').text('Please don\'t click on this person');
-    $('#face').css('cursor', 'not-allowed');
-    $('#leftArm').css('transform', 'rotate(25deg)').attr({'x': 100, 'y': 160});
-    $('#rightArm').css('transform', 'rotate(-25deg)').attr({'x': 92, 'y': 290});
-    $('.leg').animate({'y': 485});
-  } else {
-    $(this).children('path').attr('d', 'M115 125 a1,0.8 0.2 0,1 70,0');
-    $('#instructions').text('Hurry, click them again!');
-    $('#face').css('cursor', 'pointer');
-    $('#leftArm').css('transform', 'rotate(-45deg)').attr({'x': -175, 'y': 200});
-    $('#rightArm').css('transform', 'rotate(45deg)').attr({'x': 200, 'y': -50});
-  }
-  $count++;
-  for (i=1;i<3;i++) {
-    $('#rightLeg').animate({'y': 495}, 1000, 'ease-in', function() {
-      $('#rightLeg').animate({'y': 485}, 1000, 'ease-in');         
-    });
-    $('#leftLeg').animate({'y': 485}, 1000, 'ease-in', function() {
-      $('#leftLeg').animate({'y': 495}, 1000, 'ease-in');
-    });
-  }
-});
-  </script>
-  
-</body>
+  </body>
 </html>
