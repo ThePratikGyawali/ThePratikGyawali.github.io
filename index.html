@@ -1,4 +1,50 @@
-<title>exfilpr4tik</title>
+<html><head>
+  <title>exfilpr4tik</title>
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+}
+#wrapper {
+  width: 100vw;
+  height: 100vh;
+  padding: 50px 0;
+  background-color: #b3ecff;
+  text-align: center;
+  #instructions {
+    font-family: Helvetica;
+  }
+  #face {
+    &:hover {
+      cursor: not-allowed;
+    }
+    circ {
+      
+    }
+    path {
+      fill: yellow;
+      stroke: black;
+      stroke-width: 5;
+    }
+    rect,
+    circle {
+      fill: yellow;
+      stroke: black;
+      stroke-width: 3;
+      -webkit-transition: all 0.5s;
+    }
+    circle.eye {
+      fill: black;
+    }
+    rect#leftArm {
+      transition: all 0.3s;
+    }
+  }
+}
+  </style>
+  
+</head>
+<body>
 <div id="wrapper">
   <div id="instructions">eXfilPr4tik is on TIKTOK!</div>
   <svg id="face" height="600" width="300">
@@ -78,3 +124,34 @@
     />
   </svg>
 </div>
+<script>
+  $count = 1;
+
+$('#face').click(function() {
+  if ($count%2 === 0) {
+    $(this).children('path').attr('d', 'M115 105 a1,0.8 0.2 0,0 70,0');
+    $('#instructions').text('Please don\'t click on this person');
+    $('#face').css('cursor', 'not-allowed');
+    $('#leftArm').css('transform', 'rotate(25deg)').attr({'x': 100, 'y': 160});
+    $('#rightArm').css('transform', 'rotate(-25deg)').attr({'x': 92, 'y': 290});
+    $('.leg').animate({'y': 485});
+  } else {
+    $(this).children('path').attr('d', 'M115 125 a1,0.8 0.2 0,1 70,0');
+    $('#instructions').text('Hurry, click them again!');
+    $('#face').css('cursor', 'pointer');
+    $('#leftArm').css('transform', 'rotate(-45deg)').attr({'x': -175, 'y': 200});
+    $('#rightArm').css('transform', 'rotate(45deg)').attr({'x': 200, 'y': -50});
+  }
+  $count++;
+  for (i=1;i<3;i++) {
+    $('#rightLeg').animate({'y': 495}, 1000, 'ease-in', function() {
+      $('#rightLeg').animate({'y': 485}, 1000, 'ease-in');         
+    });
+    $('#leftLeg').animate({'y': 485}, 1000, 'ease-in', function() {
+      $('#leftLeg').animate({'y': 495}, 1000, 'ease-in');
+    });
+  }
+});
+  </script>
+</body>
+</html>
