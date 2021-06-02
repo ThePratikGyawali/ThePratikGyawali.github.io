@@ -1,11 +1,80 @@
-<html>
-  <body>
-    <p class="codepen" data-height="265" data-theme-id="light" data-default-tab="html,result" data-user="screener13" data-slug-hash="gxXgrW" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="SVG Smiley Face">
-  <span>See the Pen <a href="https://codepen.io/screener13/pen/gxXgrW">
-  SVG Smiley Face</a> by Sean (<a href="https://codepen.io/screener13">@screener13</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-  
-<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-  </body>
-</html>
+<title>exfilpr4tik</title>
+<div id="wrapper">
+  <div id="instructions">eXfilPr4tik is on TIKTOK!</div>
+  <svg id="face" height="600" width="300">
+    <!-- Face -->
+    <circle 
+      cx="150" 
+      cy="95" 
+      r="80" 
+    />
+    
+    <!-- Left eye -->
+    <circle 
+      cx="170" 
+      cy="60" 
+      r="10" 
+      class="eye"
+    />
+    
+    <!-- Right Eye -->
+    <circle 
+      cx="130" 
+      cy="60" 
+      r="10" 
+      class="eye"      
+    />
+    
+    <!-- Smile -->
+    <path d="M115 105 a1,0.8 0.2 0,0 70,0" />
+    
+    <!-- Torso -->
+    <rect
+      height="300"
+      width="100"
+      x="105"
+      y="180"
+    />
+    <!-- Left arm -->
+    <rect
+      id="leftArm"
+      height="30"
+      width="90"
+      x="100"
+      y="160"
+      transform="rotate(25)"
+    />
+    <!-- Right arm -->
+    <rect
+      id="rightArm"
+      height="30"
+      width="90"
+      x="92"
+      y="290"
+      fill="yellow"
+      transform="rotate(-25)"
+    />
+    <!-- Left leg -->
+    <rect
+      id="leftLeg"
+      class="leg"
+      height="90"
+      width="30"
+      x="105"
+      y="485"
+      stroke="black"
+      stroke-width="3"
+    />
+    <!-- Right leg -->
+    <rect
+      id="rightLeg"
+      class="leg"
+      height="90"
+      width="30"
+      x="175"
+      y="485"
+      stroke="black"
+      stroke-width="3"
+    />
+  </svg>
+</div>
