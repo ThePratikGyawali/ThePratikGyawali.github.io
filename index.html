@@ -12,6 +12,7 @@
 </head>
   
 <body>
+  <script>
 figlet.defaults({fontPath: 'https://unpkg.com/figlet@1.4.0/fonts/'});
 figlet.preloadFonts(["Standard", "Slant"], ready);
 
@@ -36,7 +37,7 @@ function render(text, font) {
         whitespaceBreak: true
     });
 }
-  <script>
+ 
     
 $('body').terminal({
     hello: function(what) {
